@@ -6,6 +6,8 @@
 #include <LiquidCrystal_I2C.h>
 #include <SimpleKalmanFilter.h>
 
+
+
 #define PZEM_DEVICE_ID_ADDR_SLAVER 0x01
 #define PZEM_RX_PIN 16
 #define PZEM_TX_PIN 17
@@ -18,8 +20,8 @@
 #define ZMPT_PINOUT 34
 #define RELAY1(x) digitalWrite(OUTPUT_1, x)
 #define RELAY2(x) digitalWrite(OUTPUT_2, x)
-// uint8_t mLedStatus = 0;
-// uint32_t mLoop_Interval = 0;
+
+
 
 struct AC_voltage
 {
@@ -37,8 +39,20 @@ struct Read_Analog
   float Volt_AC;
 };
 
+struct Wifi_Config
+{
+  String Wifi_Ssid;
+  String Wifi_Pass;
+  uint8_t Wifi_Status;
+  
+};
+
 void Peripheral_Init();
 void Display_Process();
 void PZEM_004T_Process();
 void ZMPT_Process();
+void Blynk_Process();
+void WIFI_PROCESS();
+void SERIAL_PROCESS();
+
 #endif
