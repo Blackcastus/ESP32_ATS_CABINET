@@ -7,8 +7,8 @@
 #include <WiFi.h>
 #include <BlynkSimpleEsp32.h>
 
-String mWifi_Ssid = "cotsongkhongon";
-String mWifi_Pass = "dunglatrung";
+String mWifi_Ssid = "Phong Tro Vui Ve";
+String mWifi_Pass = "205023701";
 
 
 PZEM004Tv30 PZEM_004T(Serial2, PZEM_RX_PIN, PZEM_TX_PIN, PZEM_DEVICE_ID_ADDR_SLAVER);
@@ -31,7 +31,7 @@ int adcResolution = 4095;
 void Peripheral_Init()
 {
     Serial.begin(115200);
-    while(!Serial){                                                     //Waiting for USB Serial COM port to open.
+    while(!Serial){
     }
 
     Blynk.begin(BLYNK_AUTH_TOKEN, mWifi_Ssid.c_str(), mWifi_Pass.c_str());
@@ -90,13 +90,19 @@ void PZEM_004T_Process()
         // Serial.printf("Current: %0.0f mA\n", PZEM_AC.Current_AC);
         // Serial.printf("Powwer: %0.4f\n", PZEM_AC.Power_AC);
         // Serial.println();
+        // if (WiFi.status() == WL_CONNECTED && Blynk.connected())
+        {
+            Blynk.virtualWrite(V5, PZEM_AC.Voltage_AC);
+            Blynk.virtualWrite(V6, PZEM_AC.Current_AC);
+            // 
+        }
     }
 }
 void ZMPT_Process()
 {
     
     static uint32_t Zmpt_Interval = 0;
-    if(millis() - Zmpt_Interval >= 5000)
+    if(millis() - Zmpt_Interval >= 10)
     {
         Zmpt_Interval = millis();
 
@@ -146,15 +152,13 @@ void ZMPT_Process()
 
         Blynk.virtualWrite(V4, relay1_status);
         Blynk.virtualWrite(V7, relay2_status);
+        Blynk.virtualWrite(V8, ZMPT_AC.Volt_AC);
 
-        uint8_t tmp_v = random(150, 250);
-        uint8_t tmp_i = random(0, 10);
         if (WiFi.status() == WL_CONNECTED && Blynk.connected())
         {
-            Blynk.virtualWrite(V5, tmp_v);
-            Blynk.virtualWrite(V6, tmp_i);
+            // 
         }
-        Serial.println("Check");
+        // Serial.println("Check");
     }
 }
 

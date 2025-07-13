@@ -10,6 +10,5 @@ void loop() {
   ZMPT_Process();
   Display_Process();
   Blynk_Process();
-  
 }
 
