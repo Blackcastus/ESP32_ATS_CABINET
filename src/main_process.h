@@ -18,6 +18,7 @@
 #define OUTPUT_1 26
 #define OUTPUT_2 27
 #define ZMPT_PINOUT 34
+#define ZMPT2_PINOUT 35
 #define RELAY1(x) digitalWrite(OUTPUT_1, x)
 #define RELAY2(x) digitalWrite(OUTPUT_2, x)
 
@@ -47,12 +48,19 @@ struct Wifi_Config
   
 };
 
+enum AC_STATUS
+{
+  OFF_ALL = 0,
+  ON_AP,
+  THAP_AP,
+  CAO_AP,
+  DU_PHONG,
+};
+
 void Peripheral_Init();
 void Display_Process();
 void PZEM_004T_Process();
 void ZMPT_Process();
 void Blynk_Process();
-void WIFI_PROCESS();
-void SERIAL_PROCESS();
 
 #endif
